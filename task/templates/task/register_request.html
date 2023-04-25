@@ -1,0 +1,20 @@
+# templates/base.html
+<html>
+    <head>
+        <title>FotoBlog</title>
+    </head>
+    <body>
+        <h1>FotoBlog</h1>
+        {% block content %}{% endblock content %}
+    </body>
+</html>
+# authentication/templates/authentication/login.html
+{% extends 'base.html' %}
+{% block content %}
+    <p>{{ message }}</p>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Submit</button>
+    </form>
+{% endblock content %}
