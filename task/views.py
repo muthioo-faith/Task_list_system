@@ -1,10 +1,8 @@
-from django.shortcuts import redirect,render
-from task.models import MyUser
+# from task.models import User
 from task.serializers import LoginSerializer
-from django.contrib.auth import login
 from rest_framework import generics
 from rest_framework.response  import Response
-from django.contrib.auth import login, authenticate  
+from django.contrib.auth import authenticate  
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
