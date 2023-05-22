@@ -3,13 +3,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from task.models import Task
-from task.models import SubTask,Attribute
-
-
-
-
-
+from task.models import Task,SubTask,Attribute
 
 MyUser = get_user_model()
 
@@ -26,19 +20,24 @@ admin.site.register(MyUser, MyUserAdmin)
 class TaskAdmin(admin.ModelAdmin):
   
     model = Task
-    list_display = ['title','assigned_to','assigned_by','creation_date','due_date','completed']
+    list_display = []
 
 admin.site.register(Task, TaskAdmin)
 
 
 class SubTaskAdmin(admin.ModelAdmin):
     model = SubTask
-    list_display = ['title','description','due_date','task']
-admin.site.register(SubTask ,SubTaskAdmin)
+    list_display = []
+
+admin.site.register(SubTask,SubTaskAdmin)
 
 
 
 class AttributeAdmin(admin.ModelAdmin):
     model = Attribute
-    list_display = ['name','assigned_to']
+    list_display = ['title','assigned_to']
+
+
 admin.site.register(Attribute,AttributeAdmin)
+
+
