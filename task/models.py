@@ -49,10 +49,7 @@ class TimestampModel(models.Model):
 
 class BaseTaskModel(TimestampModel):
    title = models.CharField(max_length=250)
-   assigned_to = models.CharField(default=True)
-   assigned_by = models.CharField(default=True)
-   creation_date =models.DateField(default=True)
-   description = models.TextField(max_length=250,default=True)
+   description = models.TextField(max_length=250)
    due_date= models.DateField(max_length=250)
    status = models.CharField(max_length=100,choices=STATUS_CHOICES,default=True)
 
@@ -60,15 +57,21 @@ class BaseTaskModel(TimestampModel):
       abstract = True
 
 class Task(BaseTaskModel):
+   assigned_to = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="task_assigned_to")
+   assigned_by = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="task_assigned_by")
    class Meta:
       ordering = ["due_date"]
    
 
 class SubTask(BaseTaskModel):
+   parent_task=models.ForeignKey(Task,on_delete=models.CASCADE)
+   assigned_to = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="subtask_assigned_to")
+   assigned_by = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="subtask_assigned_by")
    class Meta:
       ordering = ["due_date"]
+    
 
 
 class Attribute(models.Model):
-    title = models.CharField(max_length = 100)
-    assigned_to = models.ForeignKey(MyUser, on_delete = models.CASCADE)
+    title = models.CharField(max_length=100)
+    assigned_to = models.ForeignKey(MyUser, on_delete = models.CASCADE,related_name='assined_to')
