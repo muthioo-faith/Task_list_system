@@ -5,6 +5,7 @@ from .views import TaskApiView
 
 
 
+
 app_name="task"
 
 urlpatterns=[
@@ -14,3 +15,4 @@ urlpatterns=[
 
         
         ]
+

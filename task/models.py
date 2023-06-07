@@ -46,7 +46,6 @@ class TimestampModel(models.Model):
 
 
 class BaseTaskModel(TimestampModel):
-   task_id = models.IntegerField()
    title = models.CharField(max_length=250)
    description = models.TextField(max_length=250)
    due_date= models.DateField(max_length=250)
@@ -66,7 +65,7 @@ class Task(BaseTaskModel):
        
 
 class SubTask(BaseTaskModel):
-   parent_task=models.ForeignKey(Task,on_delete=models.CASCADE,default=True)
+   parent_task=models.ForeignKey(Task,on_delete=models.CASCADE,default=True,related_name="task")
    assigned_to = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="subtask_assigned_to")
    assigned_by = models.ForeignKey(MyUser,max_length=250,on_delete=models.CASCADE,related_name="subtask_assigned_by")
    class Meta:
@@ -84,3 +83,6 @@ class Attribute(models.Model):
 
 
 
+
+
+  

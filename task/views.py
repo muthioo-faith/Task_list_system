@@ -49,33 +49,32 @@ class TaskApiView(APIView):
             {"tasks":serializer.data})
              
              
+class SubTaskApiView(APIView):
 
+    def post(self,request):
+        Task = request.data
+        serializer = TaskSerializer(data=Task)
+        if serializer.is_valid(raise_exception=True):
+            Task_saved=serializer.save()
 
-    # def post(self,request):
-    #     Task = request.data
-    #     serializer = TaskSerializer(data=Task)
-    #     if serializer.is_valid(raise_exception=True):
-    #         Task_saved=serializer.save()
-
-    #     return Response({"success":"Task '{}' created successfully".format(Task_saved.AllowID)})
+        return Response({"success":"Task '{}' created successfully".format(Task_saved)})
   
 
-class SubTaskApiView(generics.CreateAPIView):
-    serializer_class = SubTaskSerializer
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        sub_task = SubTask.objects.create(
-            title=serializer.validated_data.get('title'),
-            assigned_by=serializer.validated_data.get('assigned_by'),
-            assigned_to=serializer.validated_data.get('assigned_to'),
-            task_id=serializer.validated_data.get('task_id'),
-            description=serializer.validated_data.get('description'),
-            due_date=serializer.validated_data.get('due_date'),
-            # status=serializer.validated_data.get('completed')
-            )
-        return Response(data=SubTaskResSerializer(sub_task).data, status=201)    
+# class SubTaskApiView(generics.CreateAPIView):
+#     serializer_class = SubTaskSerializer
+#     def post(self, request):
+#         serializer = self.serializer_class(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         sub_task = SubTask.objects.create(
+#             title=serializer.validated_data.get('title'),
+#             assigned_by=serializer.validated_data.get('assigned_by'),
+#             assigned_to=serializer.validated_data.get('assigned_to'),
+#             task_id=serializer.validated_data.get('task_id'),
+#             description=serializer.validated_data.get('description'),
+#             due_date=serializer.validated_data.get('due_date'),
+#             # status=serializer.validated_data.get('completed')
+#             )
+#         return Response(data=SubTaskResSerializer(sub_task).data, status=201)    
 
         
-    
-        
+   

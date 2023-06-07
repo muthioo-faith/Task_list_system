@@ -17,17 +17,20 @@ class MyUserAdmin(UserAdmin):
 
 admin.site.register(MyUser, MyUserAdmin)
 
+
+
+
 class TaskAdmin(admin.ModelAdmin):
   
     model = Task
-    list_display = ['task_id','title','description','due_date','assigned_to','assigned_by','status']
+    list_display = ['title','description','due_date','assigned_to','assigned_by','status']
 
 admin.site.register(Task, TaskAdmin)
 
 
 class SubTaskAdmin(admin.ModelAdmin):
     model = SubTask
-    list_display = ['task_id','title','description','due_date','assigned_to','assigned_by','status']
+    list_display = ['title','description','due_date','assigned_to','assigned_by','status']
 
 admin.site.register(SubTask,SubTaskAdmin)
 
@@ -39,5 +42,8 @@ class AttributeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Attribute,AttributeAdmin)
+
+
+
 
 

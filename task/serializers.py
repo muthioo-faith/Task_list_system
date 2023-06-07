@@ -5,15 +5,16 @@ class LoginSerializer(serializers.Serializer):
     username=serializers.CharField()
     password=serializers.CharField()
 
+class SubTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubTask
+        fields = "__all__"
 
-class TaskSerializer(serializers.Serializer):
-    title=serializers.CharField(max_length=120)
-    description=serializers.CharField()
-    due_date=serializers.DateField()
-    # status=serializers.CharField()
-    assigned_to=serializers.CharField()
-    assigned_by=serializers.CharField()
-    # subtask_id=serializers.IntegerField()
+class TaskSerializer(serializers.ModelSerializer):
+    parent_task=SubTaskSerializer(many=True,read_only=True,source="task")
+    class Meta:
+        model = SubTask
+        fields = '__all__'
 
     
     
@@ -21,17 +22,13 @@ class TaskSerializer(serializers.Serializer):
     def create (self,validated_data):
         return Task.objects.create(**validated_data)
     
-class SubTaskSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubTask
-        fields = ('task_id', 'assigned_to', 'assigned_by', 'description', 'title', 'due_date')
+
         
         
 class SubTaskResSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
         fields = '__all__'
-
 
 
 
